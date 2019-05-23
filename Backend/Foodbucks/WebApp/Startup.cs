@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FoodbucksWebApp
+namespace WebApp
 {
     public class Startup
     {
@@ -29,7 +29,7 @@ namespace FoodbucksWebApp
             services.AddTransient<IProductStoresRepository, ProductStoresRepository>();
             services.AddTransient<IRecipesRepository, RecipesRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("FoodbucksWebApp")));
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Data.Persistence")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
