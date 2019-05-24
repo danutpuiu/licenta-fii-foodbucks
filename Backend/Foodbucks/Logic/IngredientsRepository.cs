@@ -12,36 +12,7 @@ namespace Logic
         private readonly IDatabaseContext _databaseContext;
         private readonly IProductsRepository _productsRepository;
 
-        public static Dictionary<string, double> unitOfMeasurementConversion = new Dictionary<string, double>
-        {
-             {"millilitre", 1.0},
-             {"fluid ounce", 29.6},
-             {"pint", 473.1},
-             {"gallon", 3.79},
-             {"cup", 16.0},
-             {"quart", 946.353},
-             {"litre", 1000.0},
-
-             {"gram", 1.0},
-             {"ounce", 28.35},
-             {"kilogram", 1000.0},
-             {"pound", 453.592},
-
-             {"slice", 0.2},
-             {"chunk", 0.1},
-             {"bunch", 5},
-             {"package", 1},
-             {"bottle", 1},
-             {"piece", 1},
-             {"container", 1},
-             {"box", 1},
-             {"stalk", 0},
-             {"can", 0.3},
-             {"ball", 0.1},
-             {"pack", 1},
-
-             {"to taste", 0}
-        };
+        
 
         public IngredientsRepository(IDatabaseContext databaseContext, IProductsRepository productsRepository) : base(databaseContext)
         {
@@ -49,22 +20,37 @@ namespace Logic
             _productsRepository = productsRepository;
         }
 
-        public Task AddIngredient(Guid productId, string name, double quantity, double cost, string unitOfMeasurement)
+        public async Task AddIngredient(Guid recipeId,  string name, double quantity, string unitOfMeasurement)
+        {
+            Ingredient ingredient;
+            Product product;
+
+            if(! await _productsRepository.Exists(name))
+            {
+                product = null;
+            }
+            else
+            {
+                product = await _productsRepository.GetCheapest(name, quantity, unitOfMeasurement);
+            }
+        }
+
+        public async Task<IEnumerable<Ingredient>> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Ingredient>> GetByName(string name)
+        public async Task<Ingredient> GetByNameAndUnitOfMeasure(string name, string unitOfMeasure)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Ingredient> GetByNameAndUnitOfMeasure(string name, string unitOfMeasure)
+        public async Task<IEnumerable<Ingredient>> GetByRecipe(Guid recipeId)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateCost()
+        public async Task UpdateCost()
         {
             throw new NotImplementedException();
         }
