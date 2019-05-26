@@ -9,23 +9,25 @@ namespace Data.Domain.Entities.RecipeEntities
         }
 
         public Guid Id { get; private set; }
-        public Guid ProductId { get; private set; }
+        public Guid RecipeId { get; private set; }
+        public Guid ProductStoreId { get; private set; }
         public int NrOfProductsNecessary { get; private set; }
         public string Name { get; private set; }
         public double Quantity { get; private set; }
         public string UnitOfMeasurement { get; private set; }
         public double Cost { get; private set; }
 
-        public static Ingredient Create(Guid productId, string name, double quantity, double cost, string unitOfMeasurement, int nrOfProductsNecessary)
+        public static Ingredient Create(Guid recipeId, Guid productStoreId, string name, double quantity, double cost, string unitOfMeasurement, int nrOfProductsNecessary)
         {
             var instance = new Ingredient { Id = Guid.NewGuid() };
-            instance.Update(productId, name, quantity, cost, unitOfMeasurement, nrOfProductsNecessary);
+            instance.Update(recipeId, productStoreId, name, quantity, cost, unitOfMeasurement, nrOfProductsNecessary);
             return instance;
         }
 
-        public void Update(Guid productId, string name, double quantity, double cost, string unitOfMeasurement, int nrOfProductsNecessary)
+        public void Update(Guid recipeId, Guid productStoreId, string name, double quantity, double cost, string unitOfMeasurement, int nrOfProductsNecessary)
         {
-            ProductId = productId;
+            RecipeId = recipeId;
+            ProductStoreId = productStoreId;
             Name = name;
             Quantity = quantity;
             Cost = cost;

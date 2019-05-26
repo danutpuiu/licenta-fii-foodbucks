@@ -2,6 +2,7 @@
 using Data.Domain.Entities.OperationEntities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace Data.Domain.Interfaces
 {
@@ -16,7 +17,9 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<Recipe>> GetByLikes(int likes, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByVotes(int votes, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByRating(double RecipeRatingType, Task<IEnumerable<Recipe>> recipes);
+        Task<double> GetCostById(Guid id);
 
+        Task UpdateRecipeCost(Guid id);
         Task<IEnumerable<Recipe>> GetByFilter(RecipeFilter filter);
 
         Task<IEnumerable<Recipe>> SortBy(string sortCriteria, string sortType);

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data.Domain.Entities.RecipeEntities;
 using Data.Domain.Interfaces;
 using Data.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logic
 {
@@ -11,48 +13,64 @@ namespace Logic
     {
         private readonly IDatabaseContext _databaseContext;
         private readonly IProductsRepository _productsRepository;
+        private readonly IProductStoresRepository _productStoresRepository;        
 
-        
-
-        public IngredientsRepository(IDatabaseContext databaseContext, IProductsRepository productsRepository) : base(databaseContext)
+        public IngredientsRepository(IDatabaseContext databaseContext, IProductStoresRepository productStoresRepository, IProductsRepository productsRepository) : base(databaseContext)
         {
             _databaseContext = databaseContext;
+            _productStoresRepository = productStoresRepository;
             _productsRepository = productsRepository;
         }
 
         public async Task AddIngredient(Guid recipeId,  string name, double quantity, string unitOfMeasurement)
         {
             Ingredient ingredient;
-            Product product;
 
-            if(! await _productsRepository.Exists(name))
+            ProductStore productStoreCheapest;
+            int nrOfProductsNecessary = 0;
+            double cost = 0;
+
+            if (! await _productsRepository.Exists(name))
             {
-                product = null;
+                productStoreCheapest = null;
             }
             else
             {
-                product = await _productsRepository.GetCheapest(name, quantity, unitOfMeasurement);
+                productStoreCheapest = await _productStoresRepository.GetCheapestStoreByProduct(name, quantity, unitOfMeasurement);
             }
+
+            if(productStoreCheapest != null)
+            {
+                Product product = await _productsRepository.GetById(productStoreCheapest.ProductId);
+                double quantityAfterConversion = _productsRepository.ConvertUnits(unitOfMeasurement, product.UnitOfMeasurement, quantity);
+                nrOfProductsNecessary = (int)Math.Round(quantityAfterConversion / product.Quantity) + 1;
+                cost = nrOfProductsNecessary * productStoreCheapest.Price;
+            }
+            
+            ingredient = Ingredient.Create(recipeId, productStoreCheapest.Id, name, quantity, cost, unitOfMeasurement, nrOfProductsNecessary);
+            await Add(ingredient); 
         }
 
         public async Task<IEnumerable<Ingredient>> GetByName(string name)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Ingredient> GetByNameAndUnitOfMeasure(string name, string unitOfMeasure)
-        {
-            throw new NotImplementedException();
+            return await _databaseContext.Ingredients.Where(prod =>
+                prod.Name.ToLower().Equals(name.ToLower())).ToListAsync();
         }
 
         public async Task<IEnumerable<Ingredient>> GetByRecipe(Guid recipeId)
         {
-            throw new NotImplementedException();
+            return await _databaseContext.Ingredients.Where(prod =>
+                prod.RecipeId == recipeId).ToListAsync();
         }
 
-        public async Task UpdateCost()
+        public async Task UpdateCost(Guid ingredientId)
         {
-            throw new NotImplementedException();
+            Ingredient ingredient = _databaseContext.Ingredients.Where(i => i.Id == ingredientId).FirstOrDefault();
+            ProductStore productStore = await _productStoresRepository.GetById(ingredient.ProductStoreId);
+            double newCost = ingredient.NrOfProductsNecessary * productStore.Price;
+
+            ingredient.Update(ingredient.RecipeId, ingredient.ProductStoreId , ingredient.Name, ingredient.Quantity, newCost, ingredient.UnitOfMeasurement, ingredient.NrOfProductsNecessary);
+            _databaseContext.SaveChanges();
         }
     }
 }

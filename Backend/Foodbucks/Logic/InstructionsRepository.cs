@@ -1,8 +1,10 @@
 ﻿using Data.Domain.Entities.RecipeEntities;
 using Data.Domain.Interfaces;
 using Data.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logic
@@ -16,14 +18,17 @@ namespace Logic
             _databaseContext = databaseContext;
         }
 
-        public Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId)
+        public async Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId)
         {
-            throw new NotImplementedException();
+            return await _databaseContext.Instructions.Where(i =>
+                i.RecipeId == recipeId).ToListAsync();
         }
 
-        public Task<IEnumerable<Instruction>> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr)
+        public async Task<Instruction> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr)
         {
-            throw new NotImplementedException();
+            return _databaseContext.Instructions.Where(i =>
+                i.RecipeId == recipeId &&
+                i.InstructionNr == instructionNr).FirstOrDefault();
         }
     }
 }

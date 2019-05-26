@@ -7,10 +7,10 @@ namespace Data.Domain.Interfaces
 {
     public interface IProductStoresRepository : IGenericRepository<ProductStore>
     {
-        Task<ProductStore> Get(Guid productId, Guid recipeId);
-        Task Delete(Guid productId, Guid recipeId);
+        Task<ProductStore> GetByProductAndStore(Guid productId, Guid storeId);
         Task<IEnumerable<ProductStore>> GetByProduct(Guid productId);
         Task<IEnumerable<ProductStore>> GetByStore(Guid storeId);
+        Task<ProductStore> GetCheapestStoreByProduct(string name, double quantity, string unitOfMeasurement);
         Task UpdateAllPrices();
     }
 }

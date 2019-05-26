@@ -2,8 +2,10 @@
 using Data.Domain.Entities.RecipeEntities;
 using Data.Domain.Interfaces;
 using Data.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logic
@@ -21,57 +23,70 @@ namespace Logic
             _ingredientsRepository = ingredientsRepository;
         }
 
-        public Task<IEnumerable<Recipe>> GetByCalories(int calories, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByCalories(int calories, Task<IEnumerable<Recipe>> recipes)
+        {
+            return await _databaseContext.Recipes.Where(recipe =>
+               recipe.Calories == calories).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetByCookingTime(int cookingTime, Task<IEnumerable<Recipe>> recipes)
+        {
+            return await _databaseContext.Recipes.Where(recipe =>
+               recipe.CookingTime == cookingTime).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetByDescription(string description, Task<IEnumerable<Recipe>> recipes)
+        {
+            return await _databaseContext.Recipes.Where(recipe =>
+               recipe.Description.ToLower().Equals(description.ToLower())).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetByFilter(RecipeFilter filter)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByCookingTime(int cookingTime, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByLikes(int likes, Task<IEnumerable<Recipe>> recipes)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByDescription(string description, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByName(string name, Task<IEnumerable<Recipe>> recipes)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByFilter(RecipeFilter filter)
+        public async Task<IEnumerable<Recipe>> GetByRating(double RecipeRatingType, Task<IEnumerable<Recipe>> recipes)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByLikes(int likes, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByServings(int servings, Task<IEnumerable<Recipe>> recipes)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByName(string name, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByVotes(int votes, Task<IEnumerable<Recipe>> recipes)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByRating(double RecipeRatingType, Task<IEnumerable<Recipe>> recipes)
+        public async Task<double> GetCostById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByServings(int servings, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> SortBy(string sortCriteria, string sortType)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> GetByVotes(int votes, Task<IEnumerable<Recipe>> recipes)
+        public async Task UpdateCost()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Recipe>> SortBy(string sortCriteria, string sortType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateCost()
+        public async Task UpdateRecipeCost(Guid id)
         {
             throw new NotImplementedException();
         }

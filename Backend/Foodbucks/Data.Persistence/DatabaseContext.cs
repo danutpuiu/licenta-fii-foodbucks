@@ -17,8 +17,10 @@ namespace Data.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<ProductStore>()
                 .HasKey(pairItem => new { pairItem.ProductId, pairItem.StoreId });
+            */
         }
 
         public DbSet<Ingredient> Ingredients { get; set; }

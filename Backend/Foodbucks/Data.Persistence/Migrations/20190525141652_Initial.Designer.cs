@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190523092509_Migration2")]
-    partial class Migration2
+    [Migration("20190525141652_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,8 @@ namespace Data.Persistence.Migrations
                     b.Property<double>("Cost");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("NrOfProductsNecessary");
 
                     b.Property<Guid>("ProductId");
 
@@ -80,6 +82,8 @@ namespace Data.Persistence.Migrations
                     b.Property<Guid>("ProductId");
 
                     b.Property<Guid>("StoreId");
+
+                    b.Property<Guid>("Id");
 
                     b.Property<double>("Price");
 

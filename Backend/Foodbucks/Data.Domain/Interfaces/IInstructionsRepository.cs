@@ -8,6 +8,6 @@ namespace Data.Domain.Interfaces
     public interface IInstructionsRepository : IGenericRepository<Instruction>
     {
         Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId);
-        Task<IEnumerable<Instruction>> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr);
+        Task<Instruction> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr);
     }
 }

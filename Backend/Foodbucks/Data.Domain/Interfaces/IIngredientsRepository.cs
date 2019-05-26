@@ -10,7 +10,6 @@ namespace Data.Domain.Interfaces
         Task AddIngredient(Guid recipeId, string name, double quantity, string unitOfMeasurement);
         Task<IEnumerable<Ingredient>> GetByName(string name);
         Task<IEnumerable<Ingredient>> GetByRecipe(Guid recipeId);
-        Task<Ingredient> GetByNameAndUnitOfMeasure(string name, string unitOfMeasure);
-        Task UpdateCost();
+        Task UpdateCost(Guid ingredientId);
     }
 }

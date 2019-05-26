@@ -1,8 +1,10 @@
 ﻿using Data.Domain.Entities.RecipeEntities;
 using Data.Domain.Interfaces;
 using Data.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logic
@@ -16,34 +18,16 @@ namespace Logic
             _databaseContext = databaseContext;
         }
 
-        public Task Add(Store entity)
+        public async Task<bool> Exists(string name)
         {
-            throw new NotImplementedException();
+            return await _databaseContext.Stores.AnyAsync(
+                store => store.Name.ToLower().Equals(name.ToLower()));
         }
 
-        public Task Edit(Store entity)
+        public async Task<IEnumerable<Store>> GetByName(string name)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Exists(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Store> GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Store>> IGenericRepository<Store>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Store> IGenericRepository<Store>.GetById(Guid id)
-        {
-            throw new NotImplementedException();
+            return await _databaseContext.Stores.Where(prod =>
+                prod.Name.ToLower().Equals(name.ToLower())).ToListAsync();
         }
     }
 }

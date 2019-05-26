@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Persistence.Migrations
 {
-    public partial class Migration1 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,6 +13,7 @@ namespace Data.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false),
+                    NrOfProductsNecessary = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Quantity = table.Column<double>(nullable: false),
                     UnitOfMeasurement = table.Column<string>(nullable: true),
@@ -44,7 +45,8 @@ namespace Data.Persistence.Migrations
                     Name = table.Column<string>(nullable: true),
                     Brand = table.Column<string>(nullable: true),
                     Quantity = table.Column<double>(nullable: false),
-                    UnitOfMeasurement = table.Column<string>(nullable: true)
+                    UnitOfMeasurement = table.Column<string>(nullable: true),
+                    MeasurementSystem = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,6 +59,7 @@ namespace Data.Persistence.Migrations
                 {
                     ProductId = table.Column<Guid>(nullable: false),
                     StoreId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Price = table.Column<double>(nullable: false)
                 },
                 constraints: table =>

@@ -28,6 +28,8 @@ namespace Data.Persistence.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("NrOfProductsNecessary");
+
                     b.Property<Guid>("ProductId");
 
                     b.Property<double>("Quantity");
@@ -78,6 +80,8 @@ namespace Data.Persistence.Migrations
                     b.Property<Guid>("ProductId");
 
                     b.Property<Guid>("StoreId");
+
+                    b.Property<Guid>("Id");
 
                     b.Property<double>("Price");
 

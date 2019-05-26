@@ -11,5 +11,7 @@ namespace Data.Persistence
         DbSet<ProductStore> ProductStores { get; set; }
         DbSet<Recipe> Recipes { get; set; }
         DbSet<Store> Stores { get; set; }
+
+        int SaveChanges();
     }
 }

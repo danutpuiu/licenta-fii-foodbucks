@@ -6,6 +6,6 @@ namespace Data.Domain.Interfaces
     public interface IStoresRepository : IGenericRepository<Store>
     {
         Task<bool> Exists(string name);
-        Task<Store> GetByName(string name);
+        Task<IEnumerable<Store>> GetByName(string name);
     }
 }

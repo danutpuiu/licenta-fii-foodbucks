@@ -140,7 +140,6 @@ namespace Logic
         /* It should take into consideration to buy the lowest quantity necessary for the lowest price */
         public async Task<Product> GetCheapest(string name, double quantity, string unitOfMeasurement)
         {
-
             Product cheapestProduct = null;
             if (await Exists(name))
             {
