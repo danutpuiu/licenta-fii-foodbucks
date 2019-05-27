@@ -76,7 +76,7 @@ namespace Logic
                 }
                 else
                 {
-                    storeId = (await _storesRepository.GetByName(storeName)).Id;
+                    storeId = (await _storesRepository.GetByName(storeName)).FirstOrDefault().Id;
                 }
 
                 int measurementSystem = (int)MeasureSystem.Undefined;

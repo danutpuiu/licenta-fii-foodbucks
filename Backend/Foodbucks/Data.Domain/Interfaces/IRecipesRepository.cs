@@ -8,7 +8,6 @@ namespace Data.Domain.Interfaces
 {
     public interface IRecipesRepository : IGenericRepository<Recipe>
     {
-        Task UpdateCost();
         Task<IEnumerable<Recipe>> GetByName(string name, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByDescription(string description, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByServings(int servings, Task<IEnumerable<Recipe>> recipes);
@@ -16,7 +15,11 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<Recipe>> GetByCookingTime(int cookingTime, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByLikes(int likes, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByVotes(int votes, Task<IEnumerable<Recipe>> recipes);
-        Task<IEnumerable<Recipe>> GetByRating(double RecipeRatingType, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByRating(RecipeRatingType rating, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByCost(double cost, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByBrands(List<Product> products, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByIngredients(List<Product> products, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByStores(List<Store> stores, Task<IEnumerable<Recipe>> recipes);
         Task<double> GetCostById(Guid id);
 
         Task UpdateRecipeCost(Guid id);
