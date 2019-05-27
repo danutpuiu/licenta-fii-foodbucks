@@ -36,7 +36,8 @@ namespace Logic
             }
             else
             {
-                productStoreCheapest = await _productStoresRepository.GetCheapestStoreByProduct(name, quantity, unitOfMeasurement);
+                Product product = (await _productsRepository.GetByName(name)).FirstOrDefault();
+                productStoreCheapest = await _productStoresRepository.GetCheapestStoreByProduct(product.Id);
             }
 
             if(productStoreCheapest != null)

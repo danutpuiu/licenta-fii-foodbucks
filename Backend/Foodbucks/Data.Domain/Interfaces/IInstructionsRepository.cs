@@ -9,5 +9,6 @@ namespace Data.Domain.Interfaces
     {
         Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId);
         Task<Instruction> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr);
+        Task AddInstruction(Guid recipeId, string Description, int InstructionNr);
     }
 }

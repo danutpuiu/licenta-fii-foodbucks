@@ -16,7 +16,6 @@ namespace Logic
         private readonly IInstructionsRepository _instructionsRepository;
         private readonly IIngredientsRepository _ingredientsRepository;
         private readonly IProductStoresRepository _productStoresRepository;
-        private readonly IProductsRepository _productsRepository;
 
         public RecipesRepository(IDatabaseContext databaseContext, IInstructionsRepository instructionsRepository, IIngredientsRepository ingredientsRepository, IProductStoresRepository productStoresRepository, IProductsRepository productsRepository) : base(databaseContext)
         {
@@ -24,7 +23,6 @@ namespace Logic
             _instructionsRepository = instructionsRepository;
             _ingredientsRepository = ingredientsRepository;
             _productStoresRepository = productStoresRepository;
-            _productsRepository = productsRepository;
         }
 
         public async Task<IEnumerable<Recipe>> GetByBrands(List<Product> products, Task<IEnumerable<Recipe>> recipes)

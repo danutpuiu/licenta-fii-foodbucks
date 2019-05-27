@@ -48,7 +48,12 @@ namespace WebApp
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

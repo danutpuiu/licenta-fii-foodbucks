@@ -18,6 +18,15 @@ namespace Logic
             _databaseContext = databaseContext;
         }
 
+        public async Task AddInstruction(Guid recipeId, string description, int instructionNr)
+        {
+            Instruction instruction;
+
+            instruction = Instruction.Create(recipeId, description, instructionNr);
+            await Add(instruction);
+
+        }
+
         public async Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId)
         {
             return await _databaseContext.Instructions.Where(i =>
