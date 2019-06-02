@@ -22,6 +22,8 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<Recipe>> GetByStores(List<Store> stores, Task<IEnumerable<Recipe>> recipes);
         Task<double> GetCostById(Guid id);
 
+        Task AddVote(Guid id, bool vote);
+
         Task UpdateRecipeCost(Guid id);
         Task<IEnumerable<Recipe>> GetByFilter(RecipeFilter filter);
 

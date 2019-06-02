@@ -25,6 +25,25 @@ namespace Logic
             _productStoresRepository = productStoresRepository;
         }
 
+        public async Task AddVote(Guid id, bool vote)
+        {
+            Recipe recipe = await GetById(id);
+
+            int newVotes = recipe.Votes + 1;
+            int newLikes = recipe.Likes;
+
+            if (vote == true)
+                newLikes += 1;
+
+            RecipeRatingType newRating = newVotes / newLikes >= 0.33 ? (newVotes / newLikes < 0.66 ? RecipeRatingType.Good : RecipeRatingType.Great) : RecipeRatingType.Bad ;
+
+            recipe.Update(recipe.Name, recipe.Description, recipe.Servings,
+                recipe.Calories, recipe.CookingTime, newLikes, newVotes, newRating, recipe.Cost);
+
+            await Save();
+
+        }
+
         public async Task<IEnumerable<Recipe>> GetByBrands(List<Product> products, Task<IEnumerable<Recipe>> recipes)
         {
             IEnumerable<Recipe> recipesWithIngredients = Enumerable.Empty<Recipe>();
