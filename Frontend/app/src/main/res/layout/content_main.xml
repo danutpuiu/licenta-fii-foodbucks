@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.foodbucks.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="225dp"
+                android:layout_height="46dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="105dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="131dp"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                tools:layout_editor_absoluteX="306dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/recipesLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="577dp"
+        android:layout_marginTop="98dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
