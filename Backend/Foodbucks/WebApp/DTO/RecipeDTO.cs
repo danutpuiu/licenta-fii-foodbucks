@@ -18,6 +18,6 @@ namespace WebApp.DTO
         public int Likes { get; set; }
         public int Votes { get; set; }
         public double Cost { get; set; }
-        public RecipeRatingType Rating { get; set; }
+        public double Rating { get; set; }
     }
 }

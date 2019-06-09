@@ -35,8 +35,8 @@ namespace Logic
             if (vote == true)
                 newLikes += 1;
 
-            RecipeRatingType newRating = newVotes / newLikes >= 0.33 ? (newVotes / newLikes < 0.66 ? RecipeRatingType.Good : RecipeRatingType.Great) : RecipeRatingType.Bad ;
-
+            //RecipeRatingType newRating = newVotes / newLikes >= 0.33 ? (newVotes / newLikes < 0.66 ? RecipeRatingType.Good : RecipeRatingType.Great) : RecipeRatingType.Bad ;
+            double newRating = newLikes / newVotes;
             recipe.Update(recipe.Name, recipe.Description, recipe.Servings,
                 recipe.Calories, recipe.CookingTime, newLikes, newVotes, newRating, recipe.Cost);
 
@@ -123,11 +123,11 @@ namespace Logic
             {
                 recipes = GetByIngredients(filter.IncludingIngreditents, recipes);
             }
-            if(filter.IncludingStores.Count != 0)
+            if(filter.OnlyStores.Count != 0)
             {
-                recipes = GetByStores(filter.IncludingStores, recipes);
+                recipes = GetByStores(filter.OnlyStores, recipes);
             }
-             
+
 
             recipes = GetByRating(filter.Rating, recipes);
             recipes = GetByVotes(filter.Votes, recipes);
@@ -175,14 +175,21 @@ namespace Logic
 
         public async Task<IEnumerable<Recipe>> GetByName(string name, Task<IEnumerable<Recipe>> recipes)
         {
-            return (await recipes).Where(recipe =>
-                recipe.Name.ToLower().Contains(name.ToLower()));
+            if(name != null)
+            {
+                return (await recipes).Where(recipe =>
+                    recipe.Name.ToLower().Contains(name.ToLower()));
+            }
+            else
+            {
+                return await recipes;
+            }
         }
 
-        public async Task<IEnumerable<Recipe>> GetByRating(RecipeRatingType rating, Task<IEnumerable<Recipe>> recipes)
+        public async Task<IEnumerable<Recipe>> GetByRating(double rating, Task<IEnumerable<Recipe>> recipes)
         {
             return (await recipes).Where(recipe =>
-                recipe.Rating >= rating).OrderBy(recipe => recipe.Rating);
+                recipe.Rating >= (double)((int)rating)).OrderBy(recipe => recipe.Rating);
         }
 
         public async Task<IEnumerable<Recipe>> GetByServings(int servings, Task<IEnumerable<Recipe>> recipes)

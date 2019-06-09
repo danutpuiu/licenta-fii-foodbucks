@@ -8,20 +8,20 @@ namespace Data.Domain.Entities.OperationEntities
     {
         public double Cost { get; set; }
         public String Name { get; set; }
-        public RecipeRatingType Rating { get; set; }
+        public double Rating { get; set; }
         public int Votes { get; set; }
         public int CookingTime { get; set; }
         public int Calories { get; set; }
 
         public List<Product> IncludingIngreditents { get; set; }
         public List<Product> IncludingBrands { get; set; }
-        public List<Store> IncludingStores { get; set; }
+        public List<Store> OnlyStores { get; set; }
 
         public RecipeFilter()
         {
             IncludingIngreditents = new List<Product>();
             IncludingBrands = new List<Product>();
-            IncludingStores = new List<Store>();
+            OnlyStores = new List<Store>();
 
             Cost = 0;
             Name = "";

@@ -15,7 +15,7 @@ namespace Data.Domain.Interfaces
         Task<IEnumerable<Recipe>> GetByCookingTime(int cookingTime, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByLikes(int likes, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByVotes(int votes, Task<IEnumerable<Recipe>> recipes);
-        Task<IEnumerable<Recipe>> GetByRating(RecipeRatingType rating, Task<IEnumerable<Recipe>> recipes);
+        Task<IEnumerable<Recipe>> GetByRating(double rating, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByCost(double cost, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByBrands(List<Product> products, Task<IEnumerable<Recipe>> recipes);
         Task<IEnumerable<Recipe>> GetByIngredients(List<Product> products, Task<IEnumerable<Recipe>> recipes);

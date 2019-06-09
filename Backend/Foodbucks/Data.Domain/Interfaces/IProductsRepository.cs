@@ -10,6 +10,7 @@ namespace Data.Domain.Interfaces
         Task<bool> Exists(string name, string brand, double quantity, string unitOfMeasurement);
         Task<bool> Exists(string name);
         Task<IEnumerable<Product>> GetByName(string name);
+        Task<IEnumerable<Product>> GetByBrand(string name);
         Task<IEnumerable<Product>> GetByNameAndBrand(string name, string brand);
         Task<IEnumerable<Product>> GetByNameAndSystemOfMeasurement(string name, int systemOfMeasurement);
         Task<Product> GetCheapest(string name, double quantity, string unitOfMeasurement);

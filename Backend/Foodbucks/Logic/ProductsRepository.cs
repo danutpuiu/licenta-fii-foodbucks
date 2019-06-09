@@ -201,5 +201,11 @@ namespace Logic
 
             return convertedValue;
         }
+
+        public async Task<IEnumerable<Product>> GetByBrand(string name)
+        {
+            return await _databaseContext.Products.Where(prod =>
+                prod.Brand.ToLower().Equals(name.ToLower())).ToListAsync();
+        }
     }
 }
