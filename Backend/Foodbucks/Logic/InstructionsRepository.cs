@@ -30,7 +30,7 @@ namespace Logic
         public async Task<IEnumerable<Instruction>> GetByRecipe(Guid recipeId)
         {
             return await _databaseContext.Instructions.Where(i =>
-                i.RecipeId == recipeId).ToListAsync();
+                i.RecipeId == recipeId).OrderBy(x => x.InstructionNr).ToListAsync();
         }
 
         public async Task<Instruction> GetByRecipeAndInstructionNr(Guid recipeId, int instructionNr)

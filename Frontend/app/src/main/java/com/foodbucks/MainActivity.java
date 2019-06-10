@@ -1,5 +1,7 @@
 package com.foodbucks;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,43 +11,42 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request.Method;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.androidapp.R;
 import com.foodbucks.app.AppConfig;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private TextView textView2;
+    private LinearLayout recipesLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recipesLinearLayout = findViewById (R.id.recipesLinearLayout);
 
-        final Button searchButton = findViewById (R.id.search_button);
-        searchButton.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                AddNewRecipeToTheList();
-            }
-        });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.recipeDetailsToolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -66,31 +67,112 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        JSONObject data = new JSONObject();
+        GetAndListRecipes();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (Method.POST, AppConfig.URL_GET_ALL_RECIPES, data, new Response.Listener<JSONObject> () {
+        textView2 = (TextView) findViewById (R.id.textView2);
+        final Button searchButton = findViewById (R.id.search_button);
+        searchButton.setOnClickListener (new View.OnClickListener () {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.d ("tag_danut", "Response: " + response.toString ());
-
-                try {
-                    JSONObject jsonObject = new JSONObject (response.toString ());
-
-                } catch (JSONException e) {
-                    e.printStackTrace ();
-                }
-            }
-        }, new Response.ErrorListener () {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("errorTAG_danut", "Error returned" + error.getMessage ());
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                FilterRecipes ();
             }
         });
-
     }
 
-    public void AddNewRecipeToTheList(){
+    public void GetAndListRecipes(){
+        String url = AppConfig.URL_GET_ALL_RECIPES;
+
+        // Initialize a new RequestQueue instance
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+
+        // Initialize a new JsonArrayRequest instance
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
+
+                        // Process the JSON
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject recipe = response.getJSONObject(i);
+
+                                // Get the current student (json object) data
+                                String id = recipe.getString ("id");
+                                String name = recipe.getString("name");
+                                String description = recipe.getString("description");
+                                String calories = recipe.getString("calories");
+                                Button newRecipe = new Button (MainActivity.this);
+                                //textAppearance="@style/TextAppearance.AppCompat.Large"
+                                newRecipe.setTextColor (Color.rgb (0, 0, 0));
+                                newRecipe.setTextAppearance (R.style.TextAppearance_AppCompat_Small);
+                                newRecipe.setText(name);
+                                newRecipe.setId (i);
+                                newRecipe.setTag (id);
+                                newRecipe.setOnClickListener (new View.OnClickListener () {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent (MainActivity.this, RecipeDetailsActivity.class);
+                                        intent.putExtra ("recipeId", v.getTag ().toString ());
+                                        startActivity(intent);
+                                    }
+                                });
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                                recipesLinearLayout.addView (newRecipe, lp);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    public void FilterRecipes(){
+
+        /*
+        //====String GET method
+        //=====================
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        String url = AppConfig.URL_GET_ALL_RECIPES;
+        //String url = "https://www.google.com";
+        StringRequest stringRequest = new StringRequest (Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        textView2.setText("Response is: "+ response.toString ());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView2.setText("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        */
+        /*
+        //====Dynamic buttons method
+        //==========================
         Button newRecipe = new Button (this);
         newRecipe.setText("New recipe");
         newRecipe.setId (0);
@@ -98,7 +180,7 @@ public class MainActivity extends AppCompatActivity
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         ll.addView (newRecipe, lp);
-
+        */
     }
 
     @Override
@@ -141,32 +223,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.browse_recipes) {
-            JSONObject data = new JSONObject();
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (Method.POST, AppConfig.URL_GET_ALL_RECIPES, data, new Response.Listener<JSONObject> () {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.d ("tag_danut", "Response: " + response.toString ());
-
-                    try {
-                        JSONObject jsonObject = new JSONObject (response.toString ());
-
-                    } catch (JSONException e) {
-                        e.printStackTrace ();
-                    }
-                }
-            }, new Response.ErrorListener () {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("errorTAG_danut", "Error returned" + error.getMessage ());
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            Toast.makeText(getApplicationContext(), "Reloading recipes...", Toast.LENGTH_SHORT).show();
+            recipesLinearLayout.removeAllViews ();
+            GetAndListRecipes();
         } else if (id == R.id.add_recipe) {
+            startActivity(new Intent (MainActivity.this, AddRecipeActivity.class));
 
         } else if (id == R.id.add_product) {
-
+            startActivity(new Intent (MainActivity.this, ProductsActivity.class));
         } else if (id == R.id.add_store) {
-
+            startActivity(new Intent (MainActivity.this, StoresActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

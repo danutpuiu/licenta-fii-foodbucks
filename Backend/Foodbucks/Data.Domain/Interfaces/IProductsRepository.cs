@@ -16,5 +16,6 @@ namespace Data.Domain.Interfaces
         Task<Product> GetCheapest(string name, double quantity, string unitOfMeasurement);
         bool CanBeConverted(string unitOfMeasure1, string unitOfMeasure2);
         double ConvertUnits(string unitOfMeasure1, string unitOfMeasure2, double valueToBeConverted);
+        Task<int> AssignMeasurementUnitToMeasurementSystem(string MeasurementUnit);
     }
 }

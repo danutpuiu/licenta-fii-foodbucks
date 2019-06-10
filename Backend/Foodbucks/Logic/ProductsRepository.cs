@@ -207,5 +207,17 @@ namespace Logic
             return await _databaseContext.Products.Where(prod =>
                 prod.Brand.ToLower().Equals(name.ToLower())).ToListAsync();
         }
+
+        public async Task<int> AssignMeasurementUnitToMeasurementSystem(string MeasurementUnit)
+        {
+            if (unitOfMeasurementConversion.ContainsKey(MeasurementUnit))
+            {
+                return unitOfMeasurementConversion[MeasurementUnit].Item2;
+            }
+            else
+            {
+                return (int)MeasureSystem.Undefined;
+            }
+        }
     }
 }

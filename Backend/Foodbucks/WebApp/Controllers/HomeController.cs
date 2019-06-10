@@ -22,14 +22,14 @@ namespace WebApp.Controllers
             HomepageDTO homepageDTO = new HomepageDTO();
             homepageDTO.Recipes = await _recipesRepository.GetAll();
 
-            return View(homepageDTO);
+            return Ok(homepageDTO);
         }
 
         [HttpGet]
         [Route("error")]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

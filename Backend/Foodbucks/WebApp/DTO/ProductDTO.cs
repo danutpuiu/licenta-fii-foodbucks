@@ -15,6 +15,5 @@ namespace WebApp.DTO
         public String Store { get; set; }
         public double Quantity { get; set; }
         public double Price { get; set; }
-
     }
 }

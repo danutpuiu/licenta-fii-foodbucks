@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="24dp"
             android:orientation="horizontal"
@@ -35,19 +35,34 @@
                 android:id="@+id/search_button"
                 android:layout_width="131dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
                 android:text="Search"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
                 tools:layout_editor_absoluteX="306dp"
                 tools:layout_editor_absoluteY="16dp" />
 
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/recipesLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="577dp"
-        android:layout_marginTop="98dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="255dp"
+            android:layout_height="429dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/recipesLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="3pt" />
+        </ScrollView>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

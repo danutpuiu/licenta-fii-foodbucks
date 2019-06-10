@@ -116,11 +116,12 @@ namespace WebApp.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> RecipeById(Guid id)
+        public async Task<IActionResult> RecipeDetails(Guid id)
         {
             RecipeDTO recipeDto = new RecipeDTO();
 
             Recipe recipe = await _recipesRepository.GetById(id);
+            await _recipesRepository.UpdateRecipeCost(id);
 
             recipeDto.Name = recipe.Name;
             recipeDto.Description = recipe.Description;
