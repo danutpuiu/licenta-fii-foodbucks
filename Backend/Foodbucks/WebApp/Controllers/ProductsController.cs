@@ -2,6 +2,8 @@
 using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.DTO;
@@ -37,11 +39,15 @@ namespace WebApp.Controllers
                 systemOfMeasurement);
             await _productsRepository.Add(product);
 
-            var store = await _storesRepository.GetByName(productDTO.Store);
-            var productStore = ProductStore.Create(
-                product.Id,
-                store.FirstOrDefault().Id,
-                productDTO.Price);
+            foreach(var price in productDTO.Prices)
+            {
+                var store = await _storesRepository.GetByName(price.StoreName);
+                var productStore = ProductStore.Create(
+                    product.Id,
+                    store.FirstOrDefault().Id,
+                    price.Price);
+                await _productStoresRepository.Add(productStore);
+            }
 
             return Ok(product);
         }
@@ -70,18 +76,29 @@ namespace WebApp.Controllers
         {
             ProductDTO productDTO = new ProductDTO();
 
-            ProductStore productStore = await _productStoresRepository.GetById(id);
-            Product product = await _productsRepository.GetById(productStore.ProductId);
-            Store store = await _storesRepository.GetById(productStore.StoreId);
+            Product product = await _productsRepository.GetById(id);
+            IEnumerable<ProductStore> productStore = await _productStoresRepository.GetByProduct(product.Id);
              
 
             productDTO.Name = product.Name;
             productDTO.Quantity = product.Quantity;
             productDTO.Brand = product.Brand;
             productDTO.UnitOfMeasurement = product.UnitOfMeasurement;
-            productDTO.Store = store.Name;
-            productDTO.Price = productStore.Price;
-            
+
+            List<PriceInfoDTO> prices = new List<PriceInfoDTO>();
+
+            foreach(var price in productStore)
+            {
+                Store store = await _storesRepository.GetById(price.StoreId);
+                PriceInfoDTO priceInfoDTO = new PriceInfoDTO()
+                {
+                    Price = price.Price,
+                    StoreName = store.Name
+                };
+                prices.Add(priceInfoDTO);
+            }
+            prices.OrderBy(x => x.Price);
+            productDTO.Prices = prices;
 
             return Ok(productDTO);
         }

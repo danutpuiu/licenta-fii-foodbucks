@@ -3,14 +3,13 @@ package com.foodbucks;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,11 +32,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView textView2;
     private LinearLayout recipesLinearLayout;
+    private JSONObject filterJSON;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +50,22 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         recipesLinearLayout = findViewById (R.id.recipesLinearLayout);
 
+        filterJSON = new JSONObject ();
+        try {
+            filterJSON.put ("name", "");
+            filterJSON.put ("cost", 0);
+            filterJSON.put ("rating", 0);
+            filterJSON.put ("votesNumber", 0);
+            filterJSON.put ("cookingTime", 0);
+            filterJSON.put ("includedProducts", new JSONArray ());
+            filterJSON.put ("includingBrands", new JSONArray ());
+            filterJSON.put ("onlyStores", new JSONArray ());
+        } catch (JSONException e){
+
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.recipeDetailsToolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,42 +154,88 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void FilterRecipes(){
+        String url = AppConfig.URL_POST_RECIPE;
 
-        /*
-        //====String GET method
-        //=====================
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        String url = AppConfig.URL_GET_ALL_RECIPES;
-        //String url = "https://www.google.com";
-        StringRequest stringRequest = new StringRequest (Request.Method.GET, url,
-                new Response.Listener<String>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.POST,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        textView2.setText("Response is: "+ response.toString ());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textView2.setText("That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+                    public void onResponse(JSONArray response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
 
-        */
-        /*
-        //====Dynamic buttons method
-        //==========================
-        Button newRecipe = new Button (this);
-        newRecipe.setText("New recipe");
-        newRecipe.setId (0);
-        LinearLayout ll = (LinearLayout) findViewById (R.id.recipesLinearLayout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        ll.addView (newRecipe, lp);
-        */
+                        // Process the JSON
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject recipe = response.getJSONObject(i);
+
+                                // Get the current student (json object) data
+                                String id = recipe.getString ("id");
+                                String name = recipe.getString("name");
+                                String description = recipe.getString("description");
+                                String calories = recipe.getString("calories");
+                                Button newRecipe = new Button (MainActivity.this);
+                                //textAppearance="@style/TextAppearance.AppCompat.Large"
+                                newRecipe.setTextColor (Color.rgb (0, 0, 0));
+                                newRecipe.setTextAppearance (R.style.TextAppearance_AppCompat_Small);
+                                newRecipe.setText(name);
+                                newRecipe.setId (i);
+                                newRecipe.setTag (id);
+                                newRecipe.setOnClickListener (new View.OnClickListener () {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent (MainActivity.this, RecipeDetailsActivity.class);
+                                        intent.putExtra ("recipeId", v.getTag ().toString ());
+                                        startActivity(intent);
+                                    }
+                                });
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                                recipesLinearLayout.addView (newRecipe, lp);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.getMessage ());
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String> ();
+                try {
+                    List<Map<String, String>> includedProducts;
+                    for(int i = 0; i < filterJSON.getJSONArray ("includedProducts").length (); i++){
+                    }
+
+                    params.put("name", filterJSON.getString ("name"));
+                    params.put("rating", filterJSON.getString ("rating"));
+                    params.put("votesNumber", filterJSON.getString ("votesNumber"));
+                    params.put("cookingTime", filterJSON.getString ("cookingTime"));
+                    params.put("includedProducts", filterJSON.getString ("includedProducts"));
+                    params.put("includingBrands", filterJSON.getString ("includingBrands"));
+                    params.put("onlyStores", filterJSON.getString ("onlyStores"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace ();
+                }
+
+                return params;
+            }
+        };
+
     }
 
     @Override

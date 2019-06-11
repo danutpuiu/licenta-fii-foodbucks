@@ -89,15 +89,15 @@ namespace WebApp.Controllers
 
             foreach (var product in filterDTO.IncludedProducts)
             {
-                includingProducts.AddRange(await _productsRepository.GetByName(product.Name));
+                includingProducts.AddRange(await _productsRepository.GetByName(product));
             }
-            foreach (var product in filterDTO.IncludingBrands)
+            foreach (var brand in filterDTO.IncludingBrands)
             {
-                includingBrands.AddRange(await _productsRepository.GetByBrand(product.Brand));
+                includingBrands.AddRange(await _productsRepository.GetByBrand(brand));
             }
             foreach (var store in filterDTO.OnlyStores)
             {
-                onlyStores.AddRange(await _storesRepository.GetByName(store.Name));
+                onlyStores.AddRange(await _storesRepository.GetByName(store));
             }
 
             RecipeFilter filter = new RecipeFilter

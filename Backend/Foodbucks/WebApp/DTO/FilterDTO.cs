@@ -11,10 +11,10 @@ namespace WebApp.DTO
         public int VotesNumber { get; set; }
         public int CookingTime { get; set; }
         [Required]
-        public List<ProductDTO> IncludedProducts { get; set; }
+        public List<string> IncludedProducts { get; set; }
         [Required]
-        public List<ProductDTO> IncludingBrands { get; set; }
+        public List<string> IncludingBrands { get; set; }
         [Required]
-        public List<ProductDTO> OnlyStores { get; set; }
+        public List<string> OnlyStores { get; set; }
     }
 }

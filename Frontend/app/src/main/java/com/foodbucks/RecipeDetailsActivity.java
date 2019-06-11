@@ -47,10 +47,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         recipeCaloriesTextView = findViewById (R.id.recipeCaloriesTextView);
         recipeCookingTimeTextView = findViewById (R.id.recipeCookingTimeTextView);
         recipeCostTextView = findViewById (R.id.recipeCostTextView);
-        recipeDescriptionTextView = findViewById (R.id.recipeDescriptionTextView);
+        recipeDescriptionTextView = findViewById (R.id.productQuantityAndUOMTextView);
         recipeInstructionStepsLinearLayout = findViewById (R.id.recipeInstructionStepsLiniarLayout);
-        recipeIngredientsLinearLayout = findViewById (R.id.recipeIngredientsLiniarLayout);
-        recipeNameTextView = findViewById (R.id.recipeNameTextView);
+        recipeIngredientsLinearLayout = findViewById (R.id.pricesAndStoresLiniarLayout);
+        recipeNameTextView = findViewById (R.id.productNameAndBrandTextView);
         recipeServingsTextView  = findViewById (R.id.recipeServingsTextView);
         recipeRatingTextView = findViewById (R.id.recipeRatingTextView);
         instructionStepsDescriptorTextView = findViewById (R.id.instructionStepsDescriptorTextView);
@@ -75,28 +75,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                             recipeCookingTimeTextView.setText (response.getString ("cookingTime") + " minutes");
                             recipeRatingTextView.setText (response.getString ("rating")  + " rating");
                             recipeCostTextView.setText ("Cost: " + response.getString ("cost")  + " lei");
-                            /*
-                            "ingredients": [
-                            {
-                                "unitOfMeasurement": "millilitre",
-                                "name": "water",
-                                "quantity": 100,
-                                "cost": 1.09,
-                                "nrOfProductsNecessary": 1
-                            },
-                        ],
-                        "instructionSteps": [
-                            {
-                                "description": "In a large bowl, sift together the flour, baking powder, salt and sugar. Make a well in the center and pour in the milk, egg and melted butter; mix until smooth.",
-                                "instructionNr": 1
-                            },
-                            {
-                                "description": "Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.",
-                                "instructionNr": 2
-                            }
-                        ],
-
-                             */
 
                             ingredientsDescriptorTextView.setText ("Ingredients");
                             JSONArray ingredientsJSON = response.getJSONArray ("ingredients");

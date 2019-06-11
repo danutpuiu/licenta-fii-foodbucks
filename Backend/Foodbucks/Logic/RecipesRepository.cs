@@ -189,7 +189,7 @@ namespace Logic
         public async Task<IEnumerable<Recipe>> GetByRating(double rating, Task<IEnumerable<Recipe>> recipes)
         {
             return (await recipes).Where(recipe =>
-                recipe.Rating >= (double)((int)rating)).OrderBy(recipe => recipe.Rating);
+                recipe.Rating >= rating).OrderBy(recipe => recipe.Rating);
         }
 
         public async Task<IEnumerable<Recipe>> GetByServings(int servings, Task<IEnumerable<Recipe>> recipes)

@@ -68,9 +68,7 @@ namespace WebApp.Controllers
                 {
                     Name = product.Name,
                     Brand = product.Brand,
-                    Price = productStore.Price,
                     Quantity = product.Quantity,
-                    Store = store.Name,
                     UnitOfMeasurement = product.UnitOfMeasurement
                 };
                 productDTOs.Add(productDTO);

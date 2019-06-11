@@ -101,6 +101,7 @@ namespace Logic
 
         public async Task<IEnumerable<Product>> GetByName(string name)
         {
+
             return await _databaseContext.Products.Where(prod =>
                 prod.Name.ToLower().Equals(name.ToLower())).ToListAsync();
         }

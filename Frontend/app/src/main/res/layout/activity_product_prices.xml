@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.foodbucks.RecipeDetailsActivity">
+    tools:context="com.foodbucks.ProductPricesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,42 +50,6 @@
                     android:paddingVertical="3pt"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                <TextView
-                    android:id="@+id/recipeCaloriesTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="3pt" />
-
-                <TextView
-                    android:id="@+id/recipeCookingTimeTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="3pt" />
-
-                <TextView
-                    android:id="@+id/recipeServingsTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="3pt" />
-
-                <TextView
-                    android:id="@+id/recipeCostTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="3pt" />
-
-                <TextView
-                    android:id="@+id/recipeRatingTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="3pt" />
-
-                <TextView
-                    android:id="@+id/ingredientsDescriptorTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
                 <LinearLayout
                     android:id="@+id/pricesAndStoresLiniarLayout"
                     android:layout_width="match_parent"
@@ -96,22 +60,8 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/instructionStepsDescriptorTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <LinearLayout
-                    android:id="@+id/recipeInstructionStepsLiniarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="2pt"
-                    android:paddingBottom="3pt"></LinearLayout>
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>
