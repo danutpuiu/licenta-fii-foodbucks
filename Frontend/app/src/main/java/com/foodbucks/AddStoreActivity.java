@@ -39,7 +39,7 @@ public class AddStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String url = AppConfig.URL_POST_RECIPE;
+                String url = AppConfig.URL_POST_STORE;
                 RequestQueue requestQueue = Volley.newRequestQueue(AddStoreActivity.this);
                 JSONObject postparams = new JSONObject ();
                 try {

@@ -103,7 +103,11 @@ namespace Logic
         {
             Task<IEnumerable<Recipe>> recipes = GetAll();
 
-            if(filter.Cost > 0)
+
+            recipes = GetByRating(filter.Rating, recipes);
+            recipes = GetByVotes(filter.Votes, recipes);
+
+            if (filter.Cost > 0)
             {
                 recipes = GetByCost(filter.Cost, recipes);
             }
@@ -128,9 +132,6 @@ namespace Logic
                 recipes = GetByStores(filter.OnlyStores, recipes);
             }
 
-
-            recipes = GetByRating(filter.Rating, recipes);
-            recipes = GetByVotes(filter.Votes, recipes);
             
 
             return await recipes;

@@ -10,11 +10,8 @@ namespace WebApp.DTO
         public double Rating { get; set; }
         public int VotesNumber { get; set; }
         public int CookingTime { get; set; }
-        [Required]
-        public List<string> IncludedProducts { get; set; }
-        [Required]
-        public List<string> IncludingBrands { get; set; }
-        [Required]
-        public List<string> OnlyStores { get; set; }
+        public string IncludedProducts { get; set; }
+        public string IncludingBrands { get; set; }
+        public string OnlyStores { get; set; }
     }
 }

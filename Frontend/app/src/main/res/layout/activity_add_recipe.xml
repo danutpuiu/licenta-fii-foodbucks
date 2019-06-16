@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addRecipeCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.foodbucks.AddRecipeActivity">
@@ -11,6 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/addRecipeLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
@@ -26,186 +28,246 @@
                     android:id="@+id/recipeDetailsToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    android:background="?attr/colorPrimary" />
 
             </android.support.design.widget.AppBarLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
                 <TextView
                     android:id="@+id/newRecipeNameTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Name " />
+                    android:text="Name "
+                    android:textColor="#181717" />
 
                 <EditText
                     android:id="@+id/newRecipeNameEditText"
-                    android:layout_width="50pt"
+                    android:layout_width="120pt"
                     android:layout_height="20pt"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Enter name"
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
                 <TextView
                     android:id="@+id/newRecipeDescriptionTextView"
-                    android:layout_width="51dp"
+                    android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Description" />
+                    android:text="Description"
+                    android:textColor="#181717" />
 
                 <EditText
                     android:id="@+id/newRecipeDescriptionEditText"
-                    android:layout_width="50pt"
+                    android:layout_width="120pt"
                     android:layout_height="20pt"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Enter short description"
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
                 <TextView
                     android:id="@+id/newRecipeServingsTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Servings" />
+                    android:text="Servings"
+                    android:textColor="#181717" />
 
                 <EditText
                     android:id="@+id/newRecipeServingsEditText"
-                    android:layout_width="50pt"
+                    android:layout_width="120pt"
                     android:layout_height="20pt"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Enter number of servings"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Calories" />
+                    android:text="Calories"
+                    android:textColor="#181717" />
 
                 <EditText
                     android:id="@+id/newRecipeCaloriesEditText"
-                    android:layout_width="50pt"
+                    android:layout_width="120pt"
                     android:layout_height="20pt"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Enter number of calories"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cooking Time" />
+                    android:text="Cooking Time"
+                    android:textColor="#181717" />
 
                 <EditText
                     android:id="@+id/newRecipeCookingTimeEditText"
-                    android:layout_width="50pt"
+                    android:layout_width="120pt"
                     android:layout_height="20pt"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Enter cooking time (in minutes)"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="50pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ingredients"
+                    android:textColor="#181717" />
+
+                <Button
+                    android:id="@+id/addIngredientButton"
+                    android:layout_width="50pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add ingredient"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/removeLastIngredientButton"
+                    android:layout_width="70pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Remove last ingredient"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/newRecipeIngredientsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ingredients" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25pt"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
-                    <Button
-                        android:id="@+id/addIngredientButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Add ingredient"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="50pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Instructions"
+                    android:textColor="#181717" />
+
+                <Button
+                    android:id="@+id/addInstructionStepButton"
+                    android:layout_width="50pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Instruction"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/removeLastInstructionButton"
+                    android:layout_width="70pt"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Remove last instruction"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/newRecipeInstructionStepsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="5pt"
+                android:paddingRight="5pt">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-
-                    <Button
-                        android:id="@+id/addInstructionStepButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Add Instruction"
-                        android:textAllCaps="false" />
-                </LinearLayout>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/addRecipeButton"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="15pt"
-                android:text="@string/title_activity_add_recipe"
-                android:textAlignment="center"
-                android:textAllCaps="false" />
+                android:layout_height="match_parent"
+                android:textAlignment="center">
+
+                <Button
+                    android:id="@+id/addRecipeButton"
+                    android:layout_width="233dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="88dp"
+                    android:paddingHorizontal="0pt"
+                    android:shadowColor="#00634545"
+                    android:text="Add recipe"
+                    android:textAllCaps="false"
+                    android:textColor="#242124"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>

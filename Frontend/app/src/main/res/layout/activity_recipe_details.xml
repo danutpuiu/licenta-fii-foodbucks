@@ -109,6 +109,12 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="2pt"
                     android:paddingBottom="3pt"></LinearLayout>
+
+                <Button
+                    android:id="@+id/deleteRecipeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Delete recipe" />
             </LinearLayout>
         </ScrollView>
 

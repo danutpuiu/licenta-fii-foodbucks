@@ -4,6 +4,7 @@ using Data.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApp.DTO;
 
@@ -87,15 +88,19 @@ namespace WebApp.Controllers
             List<Product> includingBrands = new List<Product>();
             List<Store> onlyStores = new List<Store>();
 
-            foreach (var product in filterDTO.IncludedProducts)
+            List<string> includedProductsList = filterDTO.IncludedProducts.Split(',').ToList();
+            List<string> includingBrandsList = filterDTO.IncludingBrands.Split(',').ToList();
+            List<string> onlyStoresList = filterDTO.OnlyStores.Split(',').ToList();
+
+            foreach (var product in includedProductsList)
             {
                 includingProducts.AddRange(await _productsRepository.GetByName(product));
             }
-            foreach (var brand in filterDTO.IncludingBrands)
+            foreach (var brand in includingBrandsList)
             {
                 includingBrands.AddRange(await _productsRepository.GetByBrand(brand));
             }
-            foreach (var store in filterDTO.OnlyStores)
+            foreach (var store in onlyStoresList)
             {
                 onlyStores.AddRange(await _storesRepository.GetByName(store));
             }
@@ -165,6 +170,23 @@ namespace WebApp.Controllers
             
 
             return Ok(recipeDto);
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteRecipe(Guid id)
+        {
+            await _recipesRepository.Delete(id);
+            foreach(var ingredient in await _ingredientsRepository.GetByRecipe(id))
+            {
+                await _ingredientsRepository.Delete(ingredient.Id);
+            }
+
+            foreach(var instruction in await _instructionsRepository.GetByRecipe(id))
+            {
+                await _instructionsRepository.Delete(instruction.Id);
+            }
+
+            return Ok();
         }
     }
 }

@@ -9,6 +9,7 @@
     tools:showIn="@layout/app_bar_main">
 
     <LinearLayout
+        android:id="@+id/homePageContentLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -23,8 +24,8 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:id="@+id/editText"
-                android:layout_width="225dp"
+                android:id="@+id/searchRecipesEditText"
+                android:layout_width="170dp"
                 android:layout_height="46dp"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -32,15 +33,26 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <Button
-                android:id="@+id/search_button"
-                android:layout_width="131dp"
+                android:id="@+id/searchRecipesButton"
+                android:layout_width="112dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="serif"
                 android:text="Search"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#000000"
+                android:textSize="20sp"
                 tools:layout_editor_absoluteX="306dp"
                 tools:layout_editor_absoluteY="16dp" />
+
+            <Button
+                android:id="@+id/filterRecipesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="serif"
+                android:text="Filter"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

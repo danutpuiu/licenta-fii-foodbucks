@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/filterNameEditText"
+            android:layout_width="200dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any name"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:text="Maximum Cost" />
+
+        <EditText
+            android:id="@+id/filterCostEditText"
+            android:layout_width="200dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any cost"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:text="Minimum Rating" />
+
+        <Spinner
+            android:id="@+id/filterRatingSpinner"
+            android:layout_width="200dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:entries="@array/dropdown_array"
+            android:prompt="@string/dropdown_prompt"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Number of Votes" />
+
+        <EditText
+            android:id="@+id/filterNumberOfVotesEditText"
+            android:layout_width="200dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any votes"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Maximum Cooking Time" />
+
+        <EditText
+            android:id="@+id/filterCookingTimeEditText"
+            android:layout_width="200dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any cooking time"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:text="Included Products" />
+
+        <EditText
+            android:id="@+id/filterIncludedProductsEditText"
+            android:layout_width="300dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any products"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:text="Included Brands" />
+
+        <EditText
+            android:id="@+id/filterIncludedBrandsEditText"
+            android:layout_width="300dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any brands"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="150dp"
+            android:layout_height="20pt"
+            android:text="Only Stores" />
+
+        <EditText
+            android:id="@+id/filterOnlyStoresEditText"
+            android:layout_width="300dp"
+            android:layout_height="20pt"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Any stores"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+</LinearLayout>

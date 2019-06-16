@@ -1,11 +1,14 @@
 package com.foodbucks;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private TextView ingredientsDescriptorTextView;
     private LinearLayout recipeIngredientsLinearLayout;
     private LinearLayout recipeInstructionStepsLinearLayout;
+    private Button deleteRecipeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,37 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById (R.id.recipeDetailsToolbar);
         setSupportActionBar (toolbar);
+        deleteRecipeButton = findViewById (R.id.deleteRecipeButton);
+
+        deleteRecipeButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                String url = AppConfig.URL_DELETE_RECIPE + getIntent ().getStringExtra ("recipeId");
+                RequestQueue requestQueue = Volley.newRequestQueue (RecipeDetailsActivity.this);
+                Log.d("TAG", url);
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.DELETE,
+                        url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                //Success Callback
+                                Intent intent = new Intent (RecipeDetailsActivity.this, MainActivity.class);
+                                startActivity (intent);
+                                Toast.makeText(getApplicationContext(), "Recipe deleted!", Toast.LENGTH_LONG).show();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Intent intent = new Intent (RecipeDetailsActivity.this, MainActivity.class);
+                                startActivity (intent);
+                                Toast.makeText(getApplicationContext(), "Recipe deleted!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                requestQueue.add(jsonObjReq);
+            }
+        });
 
         recipeCaloriesTextView = findViewById (R.id.recipeCaloriesTextView);
         recipeCookingTimeTextView = findViewById (R.id.recipeCookingTimeTextView);
@@ -70,7 +105,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                         try {
                             recipeNameTextView.setText (response.getString ("name"));
                             recipeDescriptionTextView.setText (response.getString ("description"));
-                            recipeServingsTextView.setText (response.getString ("servings") + " servigs");
+                            recipeServingsTextView.setText (response.getString ("servings") + " servings");
                             recipeCaloriesTextView.setText (response.getString ("calories") + " calories");
                             recipeCookingTimeTextView.setText (response.getString ("cookingTime") + " minutes");
                             recipeRatingTextView.setText (response.getString ("rating")  + " rating");
@@ -136,6 +171,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 });
 
         requestQueue.add(jsonObjReq);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent (RecipeDetailsActivity.this, MainActivity.class);
+        startActivity (intent);
     }
 
 }

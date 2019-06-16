@@ -1,7 +1,5 @@
 package com.foodbucks.app;
 
-import java.util.List;
-
 public class FilterDTO {
 
     String name;
@@ -9,11 +7,11 @@ public class FilterDTO {
     double rating;
     int votestNumber;
     int cookingTime;
-    List<String> includedProducts;
-    List<String> includingBrands;
-    List<String> onlyStores;
+    String includedProducts;
+    String includingBrands;
+    String onlyStores;
 
-    public FilterDTO(String name, double cost, double rating, int votestNumber, int cookingTime, List<String> includedProducts, List<String> includingBrands, List<String> onlyStores) {
+    public FilterDTO(String name, double cost, double rating, int votestNumber, int cookingTime, String includedProducts, String includingBrands, String onlyStores) {
         this.name = name;
         this.cost = cost;
         this.rating = rating;
@@ -64,27 +62,27 @@ public class FilterDTO {
         this.cookingTime = cookingTime;
     }
 
-    public List<String> getIncludedProducts() {
+    public String getIncludedProducts() {
         return includedProducts;
     }
 
-    public void setIncludedProducts(List<String> includedProducts) {
+    public void setIncludedProducts(String includedProducts) {
         this.includedProducts = includedProducts;
     }
 
-    public List<String> getIncludingBrands() {
+    public String getIncludingBrands() {
         return includingBrands;
     }
 
-    public void setIncludingBrands(List<String> includingBrands) {
+    public void setIncludingBrands(String includingBrands) {
         this.includingBrands = includingBrands;
     }
 
-    public List<String> getOnlyStores() {
+    public String getOnlyStores() {
         return onlyStores;
     }
 
-    public void setOnlyStores(List<String> onlyStores) {
+    public void setOnlyStores(String onlyStores) {
         this.onlyStores = onlyStores;
     }
 
