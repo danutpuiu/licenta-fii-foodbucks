@@ -67,7 +67,18 @@ public class MainActivity extends AppCompatActivity
     private EditText searchRecipesEditText;
     private Button searchRecipesButton;
 
+    private Button sortRecipesButton;
+
     private FilterDTO appliedFilter;
+
+    private AlertDialog filterDialog;
+    private AlertDialog sortDialog;
+
+    private Spinner sortCriteriaSpinner;
+    private Spinner sortTypeSpinner;
+
+    private View filterLayout;
+    private View sortLayout;
 
     private View view;
 
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        sortRecipesButton = findViewById (R.id.sortRecipesButton);
 
         appliedFilter = new FilterDTO (
                 "", 0, 0, 0, 0, "", "", ""
@@ -122,24 +133,23 @@ public class MainActivity extends AppCompatActivity
 
         GetAndListRecipes();
 
-        textView2 = (TextView) findViewById (R.id.textView2);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService (LAYOUT_INFLATER_SERVICE);
-        final View layout = inflater.inflate (R.layout.content_filter, (ViewGroup) findViewById (R.id.filterLinearLayout));
+        filterLayout = inflater.inflate (R.layout.content_filter, (ViewGroup) findViewById (R.id.filterLinearLayout));
         AlertDialog.Builder builder = new AlertDialog.Builder (this);
 
-        builder.setView (layout);
+        builder.setView (filterLayout);
         builder.setPositiveButton ("Filter", new DialogInterface.OnClickListener () {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                filterNameEditText = layout.findViewById (R.id.filterNameEditText);
-                filterCostEditText = layout.findViewById (R.id.filterCostEditText);
-                filterNumberOfVotesEditText = layout.findViewById (R.id.filterNumberOfVotesEditText);
-                filterIncludedProductsEditText = layout.findViewById (R.id.filterIncludedProductsEditText);
-                filterRatingSpinner = (Spinner) layout.findViewById (R.id.filterRatingSpinner);
-                filterIncludedBrandsEditText = layout.findViewById (R.id.filterIncludedBrandsEditText);
-                filterOnlyStoresEditText = layout.findViewById (R.id.filterOnlyStoresEditText);
-                filterCookingTimeEditText = layout.findViewById (R.id.filterCookingTimeEditText);
+                filterNameEditText = filterLayout.findViewById (R.id.filterNameEditText);
+                filterCostEditText = filterLayout.findViewById (R.id.filterCostEditText);
+                filterNumberOfVotesEditText = filterLayout.findViewById (R.id.filterNumberOfVotesEditText);
+                filterIncludedProductsEditText = filterLayout.findViewById (R.id.filterIncludedProductsEditText);
+                filterRatingSpinner = (Spinner) filterLayout.findViewById (R.id.filterRatingSpinner);
+                filterIncludedBrandsEditText = filterLayout.findViewById (R.id.filterIncludedBrandsEditText);
+                filterOnlyStoresEditText = filterLayout.findViewById (R.id.filterOnlyStoresEditText);
+                filterCookingTimeEditText = filterLayout.findViewById (R.id.filterCookingTimeEditText);
 
                 if(!searchRecipesEditText.getText ().toString ().trim ().isEmpty ()){
                     filterNameEditText.setText (searchRecipesEditText.getText ());
@@ -154,18 +164,48 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final AlertDialog dialog = builder.create ();
-
+        filterDialog = builder.create ();
         filterRecipesButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                dialog.show ();
+                filterDialog.show ();
             }
         });
+
+        sortLayout = inflater.inflate (R.layout.content_sort, (ViewGroup) findViewById (R.id.sortLinearLayour));
+        AlertDialog.Builder builder1 = new AlertDialog.Builder (this);
+        builder1.setView (sortLayout);
+        builder1.setPositiveButton ("Sort", new DialogInterface.OnClickListener () {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sortCriteriaSpinner = sortLayout.findViewById (R.id.sortCriteriaSpinner);
+                sortTypeSpinner = sortLayout.findViewById (R.id.sortTypeSpinner);
+
+                GetAndListRecipesBySort(sortCriteriaSpinner.getSelectedItem ().toString () + "_" + sortTypeSpinner.getSelectedItem ().toString ());
+            }
+        });
+
+        builder1.setNegativeButton ("Cancel", new DialogInterface.OnClickListener () {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        sortDialog = builder1.create ();
+
+        sortRecipesButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                sortDialog.show ();
+            }
+        });
+
+
     }
 
-    public void GetAndListRecipesBySearch(){
-        String url = AppConfig.URL_GET_RECIPES_BY_NAME + searchRecipesEditText.getText ();
+    public void GetAndListRecipesBySort(String sortCriteria){
+        String url = AppConfig.URL_SORT_RECIPES + sortCriteria;
 
         // Initialize a new RequestQueue instance
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
@@ -179,7 +219,6 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONArray response) {
                         // Do something with response
-                        //mTextView.setText(response.toString());
                         recipesLinearLayout.removeAllViews ();
                         // Process the JSON
                         try{
@@ -208,7 +247,73 @@ public class MainActivity extends AppCompatActivity
                                         startActivity(intent);
                                     }
                                 });
-                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                                recipesLinearLayout.addView (newRecipe, lp);
+                            }
+                        }catch (JSONException e){
+                            Toast.makeText(getApplicationContext(), e.getMessage (), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+        // Add JsonArrayRequest to the RequestQueue
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    public void GetAndListRecipesBySearch(){
+        String url = AppConfig.URL_GET_RECIPES_BY_NAME + searchRecipesEditText.getText ();
+
+        // Initialize a new RequestQueue instance
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+
+        // Initialize a new JsonArrayRequest instance
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
+                        // Do something with response
+                        recipesLinearLayout.removeAllViews ();
+                        // Process the JSON
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject recipe = response.getJSONObject(i);
+
+                                // Get the current student (json object) data
+                                String id = recipe.getString ("id");
+                                String name = recipe.getString("name");
+                                String description = recipe.getString("description");
+                                String calories = recipe.getString("calories");
+                                Button newRecipe = new Button (MainActivity.this);
+                                //textAppearance="@style/TextAppearance.AppCompat.Large"
+                                newRecipe.setTextColor (Color.rgb (0, 0, 0));
+                                newRecipe.setTextAppearance (R.style.TextAppearance_AppCompat_Small);
+                                newRecipe.setText(name);
+                                newRecipe.setId (i);
+                                newRecipe.setTag (id);
+                                newRecipe.setOnClickListener (new View.OnClickListener () {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent (MainActivity.this, RecipeDetailsActivity.class);
+                                        intent.putExtra ("recipeId", v.getTag ().toString ());
+                                        startActivity(intent);
+                                    }
+                                });
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT);
                                 recipesLinearLayout.addView (newRecipe, lp);
                             }

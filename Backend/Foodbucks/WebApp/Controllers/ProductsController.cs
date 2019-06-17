@@ -26,6 +26,8 @@ namespace WebApp.Controllers
             _storesRepository = storesRepository;
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductDTO productDTO)
         {

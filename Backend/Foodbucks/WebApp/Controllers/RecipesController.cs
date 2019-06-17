@@ -35,6 +35,17 @@ namespace WebApp.Controllers
             _storesRepository = storesRepository;
         }
 
+        [HttpPut("{id}")]
+        [Route("addrating")]
+        public async Task<IActionResult> AddNewRating (Guid id, [FromBody] NewVoteDTO newVoteDTO)
+        {
+            await _recipesRepository.AddVote(id, newVoteDTO.Vote);
+
+            return Ok(_recipesRepository.GetById(id).Result);
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RecipeDTO recipeDto)
         {
@@ -72,6 +83,15 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _recipesRepository.GetAll());
+        }
+
+        [HttpGet]
+        [Route("Sort")]
+        public async Task<IActionResult> Sort(string sortBy)
+        {
+            string sortCriteria = sortBy.Split('_').ToList()[0];
+            string sortType = sortBy.Split('_').ToList()[1];
+            return Ok(await _recipesRepository.SortBy(sortCriteria, sortType));
         }
 
         [HttpGet]
@@ -136,6 +156,7 @@ namespace WebApp.Controllers
             recipeDto.Likes = recipe.Likes;
             recipeDto.Rating = recipe.Rating;
             recipeDto.Votes = recipe.Votes;
+            recipeDto.Servings = recipe.Servings;
 
             List<InstructionStepDTO> instructionStepsDTOs = new List<InstructionStepDTO>();
             IEnumerable<Instruction> instructions = await _instructionsRepository.GetByRecipe(id);
@@ -188,5 +209,7 @@ namespace WebApp.Controllers
 
             return Ok();
         }
+        
+
     }
 }

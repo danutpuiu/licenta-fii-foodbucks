@@ -14,4 +14,19 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+
+    <string-array name="sort_criteria">
+        <item>name</item>
+        <item>cost</item>
+        <item>rating</item>
+        <item>likes</item>
+        <item>servings</item>
+        <item>cookingtime</item>
+    </string-array>
+
+    <string-array name="sort_type">
+        <item>asc</item>
+        <item>desc</item>
+    </string-array>
+
 </resources>

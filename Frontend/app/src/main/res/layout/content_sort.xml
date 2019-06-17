@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sortLinearLayour"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="50dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="Sort criteria"
+            android:textColor="#362A2A"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/sortCriteriaSpinner"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:entries="@array/sort_criteria"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="Sort type"
+            android:textColor="#362A2A"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/sortTypeSpinner"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:entries="@array/sort_type"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+</LinearLayout>

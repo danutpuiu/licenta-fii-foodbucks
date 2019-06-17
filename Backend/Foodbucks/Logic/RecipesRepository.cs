@@ -36,7 +36,7 @@ namespace Logic
                 newLikes += 1;
 
             //RecipeRatingType newRating = newVotes / newLikes >= 0.33 ? (newVotes / newLikes < 0.66 ? RecipeRatingType.Good : RecipeRatingType.Great) : RecipeRatingType.Bad ;
-            double newRating = newLikes / newVotes;
+            double newRating = (double)newLikes / (double)newVotes;
             recipe.Update(recipe.Name, recipe.Description, recipe.Servings,
                 recipe.Calories, recipe.CookingTime, newLikes, newVotes, newRating, recipe.Cost);
 

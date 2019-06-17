@@ -40,6 +40,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private LinearLayout recipeInstructionStepsLinearLayout;
     private Button deleteRecipeButton;
 
+    private Button likeRecipeButton;
+    private Button dislikeRecipeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -48,6 +51,28 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById (R.id.recipeDetailsToolbar);
         setSupportActionBar (toolbar);
         deleteRecipeButton = findViewById (R.id.deleteRecipeButton);
+
+
+        likeRecipeButton = findViewById (R.id.likeRecipeButton);
+        dislikeRecipeButton = findViewById (R.id.dislikeRecipeButton);
+
+        likeRecipeButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                RateRecipe (true, getIntent ().getStringExtra ("recipeId"));
+                likeRecipeButton.setClickable (false);
+                dislikeRecipeButton.setClickable (true);
+            }
+        });
+
+        dislikeRecipeButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                RateRecipe (false, getIntent ().getStringExtra ("recipeId"));
+                likeRecipeButton.setClickable (true);
+                dislikeRecipeButton.setClickable (false);
+            }
+        });
 
         deleteRecipeButton.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -103,12 +128,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         //Success Callback
                         try {
+                            Log.d("TAG", response.toString ());
                             recipeNameTextView.setText (response.getString ("name"));
                             recipeDescriptionTextView.setText (response.getString ("description"));
-                            recipeServingsTextView.setText (response.getString ("servings") + " servings");
+                            recipeServingsTextView.setText (response.getInt ("servings") + " servings");
                             recipeCaloriesTextView.setText (response.getString ("calories") + " calories");
                             recipeCookingTimeTextView.setText (response.getString ("cookingTime") + " minutes");
-                            recipeRatingTextView.setText (response.getString ("rating")  + " rating");
+                            recipeRatingTextView.setText ((int)(response.getDouble ("rating") * 10)  + " stars out of 10 rating");
                             recipeCostTextView.setText ("Cost: " + response.getString ("cost")  + " lei");
 
                             ingredientsDescriptorTextView.setText ("Ingredients");
@@ -172,6 +198,41 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjReq);
     }
+
+    public void RateRecipe (boolean vote, String recipeId){
+        String url = AppConfig.URL_VOTE_RECIPE + recipeId;
+        RequestQueue requestQueue = Volley.newRequestQueue(RecipeDetailsActivity.this);
+        JSONObject postparams = new JSONObject ();
+        try {
+            postparams.put ("vote", vote);
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage (), Toast.LENGTH_LONG).show();
+        }
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest (Request.Method.PUT,
+                url, postparams,
+                new Response.Listener<JSONObject> () {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            recipeRatingTextView.setText ((int)(response.getDouble ("rating") * 10)  + " stars out of 10 rating");
+                            Toast.makeText(getApplicationContext(), "vode added", Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+
+                            Toast.makeText(getApplicationContext(), e.getMessage (), Toast.LENGTH_LONG).show();
+                            e.printStackTrace ();
+                        }
+                    }
+                },
+                new Response.ErrorListener () {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage (), Toast.LENGTH_LONG).show();
+                    }
+                });
+        requestQueue.add (jsonObjReq);
+    }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent (RecipeDetailsActivity.this, MainActivity.class);
