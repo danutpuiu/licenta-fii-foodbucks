@@ -1,7 +1,6 @@
 package com.foodbucks;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -62,7 +61,6 @@ public class ProductPricesActivity extends AppCompatActivity {
                             for (int i = 0; i< instructionStepsJSON.length (); i++){
                                 JSONObject priceInfo = instructionStepsJSON.getJSONObject (i);
                                 final TextView newPriceInfo = new TextView ( ProductPricesActivity.this);
-                                newPriceInfo.setTextColor (Color.rgb (0,0,0));
                                 newPriceInfo.setClickable (true);
                                 newPriceInfo.setText ("Store: " + priceInfo.getString ("storeName") +
                                         " - " +

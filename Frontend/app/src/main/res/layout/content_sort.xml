@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="50dp">
+    android:paddingLeft="60dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -13,12 +13,10 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:text="Sort criteria"
-            android:textColor="#362A2A"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/sortCriteriaSpinner"
@@ -35,12 +33,10 @@
 
         <TextView
             android:id="@+id/textView21"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:text="Sort type"
-            android:textColor="#362A2A"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/sortTypeSpinner"

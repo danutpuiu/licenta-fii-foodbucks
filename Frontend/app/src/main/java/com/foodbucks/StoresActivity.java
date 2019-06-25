@@ -80,11 +80,10 @@ public class StoresActivity extends AppCompatActivity {
                                 final String description = product.getString("description");
 
                                 final TextView newProductTextView = new TextView (StoresActivity.this);
-                                newProductTextView.setTextColor (Color.BLACK);
+                                newProductTextView.setTextColor (Color.WHITE);
 
                                 newProductTextView.setClickable (true);
                                 newProductTextView.setPadding (50, 30, 50, 30);
-
 
                                 newProductTextView.setText (name + "\n" +
                                         description + "\n" +

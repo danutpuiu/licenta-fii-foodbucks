@@ -36,7 +36,7 @@ namespace Logic
                 newLikes += 1;
 
             //RecipeRatingType newRating = newVotes / newLikes >= 0.33 ? (newVotes / newLikes < 0.66 ? RecipeRatingType.Good : RecipeRatingType.Great) : RecipeRatingType.Bad ;
-            double newRating = (double)newLikes / (double)newVotes;
+            double newRating = (double)newLikes / (double)newVotes * 10;
             recipe.Update(recipe.Name, recipe.Description, recipe.Servings,
                 recipe.Calories, recipe.CookingTime, newLikes, newVotes, newRating, recipe.Cost);
 
@@ -78,13 +78,13 @@ namespace Logic
         public async Task<IEnumerable<Recipe>> GetByCalories(int calories, Task<IEnumerable<Recipe>> recipes)
         {
             return await _databaseContext.Recipes.Where(recipe =>
-               recipe.Calories == calories).ToListAsync();
+               recipe.Calories <= calories).ToListAsync();
         }
 
         public async Task<IEnumerable<Recipe>> GetByCookingTime(int cookingTime, Task<IEnumerable<Recipe>> recipes)
         {
             return await _databaseContext.Recipes.Where(recipe =>
-               recipe.CookingTime == cookingTime).ToListAsync();
+               recipe.CookingTime <= cookingTime).ToListAsync();
         }
 
         public async Task<IEnumerable<Recipe>> GetByCost(double cost, Task<IEnumerable<Recipe>> recipes)

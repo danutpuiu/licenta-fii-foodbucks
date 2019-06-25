@@ -67,7 +67,7 @@ public class ProductsActivity extends AppCompatActivity {
                                 final String unitOfMeasurement = product.getString ("unitOfMeasurement");
 
                                 final TextView newProductTextView = new TextView (ProductsActivity.this);
-                                newProductTextView.setTextColor (Color.BLACK);
+                                newProductTextView.setTextColor (Color.WHITE);
 
                                 newProductTextView.setClickable (true);
                                 newProductTextView.setPadding (50, 30, 50, 30);

@@ -44,8 +44,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Name "
-                    android:textColor="#181717" />
+                    android:text="Name " />
 
                 <EditText
                     android:id="@+id/newRecipeNameEditText"
@@ -69,8 +68,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Description"
-                    android:textColor="#181717" />
+                    android:text="Description" />
 
                 <EditText
                     android:id="@+id/newRecipeDescriptionEditText"
@@ -95,8 +93,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Servings"
-                    android:textColor="#181717" />
+                    android:text="Servings" />
 
                 <EditText
                     android:id="@+id/newRecipeServingsEditText"
@@ -120,8 +117,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Calories"
-                    android:textColor="#181717" />
+                    android:text="Calories" />
 
                 <EditText
                     android:id="@+id/newRecipeCaloriesEditText"
@@ -145,8 +141,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cooking Time"
-                    android:textColor="#181717" />
+                    android:text="Cooking Time" />
 
                 <EditText
                     android:id="@+id/newRecipeCookingTimeEditText"
@@ -171,8 +166,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ingredients"
-                    android:textColor="#181717" />
+                    android:text="Ingredients" />
 
                 <Button
                     android:id="@+id/addIngredientButton"
@@ -216,8 +210,7 @@
                     android:layout_width="50pt"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Instructions"
-                    android:textColor="#181717" />
+                    android:text="Instructions" />
 
                 <Button
                     android:id="@+id/addInstructionStepButton"
@@ -263,7 +256,7 @@
                     android:shadowColor="#00634545"
                     android:text="Add recipe"
                     android:textAllCaps="false"
-                    android:textColor="#242124"
+                    android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

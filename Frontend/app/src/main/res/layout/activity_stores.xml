@@ -16,7 +16,8 @@
             android:id="@+id/addStoreButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Store" />
+            android:text="Add Store"
+            android:visibility="invisible" />
 
         <ScrollView
             android:layout_width="match_parent"

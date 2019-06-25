@@ -34,6 +34,8 @@ namespace WebApp.DummyData
                     Product.Create("sugar", "SugarBrand", 1, "kilogram", 1),
                     Product.Create("flour", "FlourBrand", 1, "kilogram", 1),
                     Product.Create("water", "WaterBrand", 2.5, "litre", 2),
+                    Product.Create("soy sauce", "Soy B", 500, "millilitre", 2),
+                    Product.Create("chicken breast", "Kf Chicken", 1, "kilogram", 1),
                     Product.Create("salt", "SaltBrand", 1, "kilogram", 1)
                 };
                 context.Products.AddRange(products);
@@ -51,15 +53,26 @@ namespace WebApp.DummyData
                     ProductStore.Create(products[1].Id, stores[2].Id, 2.99),
                     ProductStore.Create(products[1].Id, stores[3].Id, 2.01),
 
-                    ProductStore.Create(products[2].Id, stores[0].Id, 1.59),
-                    ProductStore.Create(products[2].Id, stores[1].Id, 2.59),
-                    ProductStore.Create(products[2].Id, stores[2].Id, 1.89),
-                    ProductStore.Create(products[2].Id, stores[3].Id, 1.09),
+                    ProductStore.Create(products[2].Id, stores[0].Id, 2.59),
+                    ProductStore.Create(products[2].Id, stores[1].Id, 3.59),
+                    ProductStore.Create(products[2].Id, stores[2].Id, 4.89),
+                    ProductStore.Create(products[2].Id, stores[3].Id, 3.09),
 
-                    ProductStore.Create(products[2].Id, stores[0].Id, 1.01),
-                    ProductStore.Create(products[2].Id, stores[1].Id, 1.49),
-                    ProductStore.Create(products[2].Id, stores[2].Id, 0.99),
-                    ProductStore.Create(products[2].Id, stores[3].Id, 1.79),
+                    ProductStore.Create(products[3].Id, stores[0].Id, 2.22),
+                    ProductStore.Create(products[3].Id, stores[1].Id, 2.23),
+                    ProductStore.Create(products[3].Id, stores[2].Id, 2.24),
+                    ProductStore.Create(products[3].Id, stores[3].Id, 2.03),
+
+
+                    ProductStore.Create(products[4].Id, stores[0].Id, 4.41),
+                    ProductStore.Create(products[4].Id, stores[1].Id, 5.49),
+                    ProductStore.Create(products[4].Id, stores[2].Id, 3.99),
+                    ProductStore.Create(products[4].Id, stores[3].Id, 4.79),
+
+                    ProductStore.Create(products[5].Id, stores[0].Id, 1.41),
+                    ProductStore.Create(products[5].Id, stores[1].Id, 1.49),
+                    ProductStore.Create(products[5].Id, stores[2].Id, 1.99),
+                    ProductStore.Create(products[5].Id, stores[3].Id, 1.79),
                 };
                 context.ProductStores.AddRange(productStores);
                 context.SaveChanges();
@@ -97,6 +110,7 @@ namespace WebApp.DummyData
                 };
                 context.Instructions.AddRange(instructions);
                 context.SaveChanges();
+                
             }
         }
 

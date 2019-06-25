@@ -1,8 +1,7 @@
 package com.foodbucks.app;
 
 public class AppConfig {
-
-    public static String NGROK_CHANGING_STTRING = "c4465576";
+    public static String NGROK_CHANGING_STTRING = "90ba5e0d";
     public static String NGROK_ADDRESS = "https://"+NGROK_CHANGING_STTRING+".ngrok.io";
     public static String URL_GET_ALL_RECIPES = NGROK_ADDRESS + "/recipes/all/";
     public static String URL_POST_RECIPE = NGROK_ADDRESS + "/recipes/";

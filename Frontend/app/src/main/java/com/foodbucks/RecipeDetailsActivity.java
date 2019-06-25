@@ -134,7 +134,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                             recipeServingsTextView.setText (response.getInt ("servings") + " servings");
                             recipeCaloriesTextView.setText (response.getString ("calories") + " calories");
                             recipeCookingTimeTextView.setText (response.getString ("cookingTime") + " minutes");
-                            recipeRatingTextView.setText ((int)(response.getDouble ("rating") * 10)  + " stars out of 10 rating");
+                            recipeRatingTextView.setText ((int)(response.getDouble ("rating"))  + " stars out of 10 rating");
                             recipeCostTextView.setText ("Cost: " + response.getString ("cost")  + " lei");
 
                             ingredientsDescriptorTextView.setText ("Ingredients");
@@ -142,7 +142,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                             for (int i = 0; i < ingredientsJSON.length (); i++){
                                 JSONObject ingredient = ingredientsJSON.getJSONObject (i);
                                 TextView newIngredientTextView = new TextView (RecipeDetailsActivity.this);
-                                newIngredientTextView.setTextColor (Color.rgb (0,0,0));
+                                newIngredientTextView.setTextColor (Color.rgb (254,254,254));
                                 newIngredientTextView.setText (ingredient.getString ("name") + " - " +
                                         ingredient.getString ("quantity") + " " +
                                         ingredient.getString ("unitOfMeasurement") +
@@ -159,7 +159,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                             for (int i = 0; i< instructionStepsJSON.length (); i++){
                                 JSONObject instructionStep = instructionStepsJSON.getJSONObject (i);
                                 final TextView newInstructionStepTextView = new TextView ( RecipeDetailsActivity.this);
-                                newInstructionStepTextView.setTextColor (Color.rgb (0,0,0));
+                                //newInstructionStepTextView.setTextColor (Color.rgb (254,254,254));
                                 newInstructionStepTextView.setClickable (true);
                                 newInstructionStepTextView.setText (instructionStep.getString ("instructionNr") +
                                         ". " +
@@ -172,11 +172,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         if(newInstructionStepTextView.getTag () != "DONE"){
-                                            newInstructionStepTextView.setBackgroundColor (Color.GREEN);
+                                            newInstructionStepTextView.setBackgroundColor (Color.rgb (68, 186, 81));
                                             newInstructionStepTextView.setTag ("DONE");
                                         }
                                         else{
-                                            newInstructionStepTextView.setBackgroundColor (Color.WHITE);
+                                            newInstructionStepTextView.setBackgroundColor (0x00000000);
                                             newInstructionStepTextView.setTag ("NOT_DONE");
                                         }
                                     }
@@ -215,7 +215,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            recipeRatingTextView.setText ((int)(response.getDouble ("rating") * 10)  + " stars out of 10 rating");
+                            recipeRatingTextView.setText ((int)(response.getDouble ("rating"))  + " stars out of 10 rating");
                             Toast.makeText(getApplicationContext(), "vode added", Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
 

@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity
                                 newRecipe.setText(name);
                                 newRecipe.setId (i);
                                 newRecipe.setTag (id);
+                                newRecipe.setAllCaps (false);
                                 newRecipe.setOnClickListener (new View.OnClickListener () {
                                     @Override
                                     public void onClick(View v) {
@@ -305,6 +306,7 @@ public class MainActivity extends AppCompatActivity
                                 newRecipe.setText(name);
                                 newRecipe.setId (i);
                                 newRecipe.setTag (id);
+                                newRecipe.setAllCaps (false);
                                 newRecipe.setOnClickListener (new View.OnClickListener () {
                                     @Override
                                     public void onClick(View v) {
@@ -425,6 +427,7 @@ public class MainActivity extends AppCompatActivity
                                 newRecipe.setText(name);
                                 newRecipe.setId (i);
                                 newRecipe.setTag (id);
+                                newRecipe.setAllCaps (false);
                                 newRecipe.setOnClickListener (new View.OnClickListener () {
                                     @Override
                                     public void onClick(View v) {
@@ -514,6 +517,7 @@ public class MainActivity extends AppCompatActivity
                                 newRecipe.setText(name);
                                 newRecipe.setId (i);
                                 newRecipe.setTag (id);
+                                newRecipe.setAllCaps (false);
                                 newRecipe.setOnClickListener (new View.OnClickListener () {
                                     @Override
                                     public void onClick(View v) {
@@ -575,6 +579,7 @@ public class MainActivity extends AppCompatActivity
                                 newRecipe.setText(name);
                                 newRecipe.setId (i);
                                 newRecipe.setTag (id);
+                                newRecipe.setAllCaps (false);
                                 newRecipe.setOnClickListener (new View.OnClickListener () {
                                     @Override
                                     public void onClick(View v) {
